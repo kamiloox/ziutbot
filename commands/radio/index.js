@@ -1,15 +1,18 @@
+const play = require('./play');
+
 const subcommands = {
-  play: () => console.log('playing from subcommand'),
+  play: (msgDetails) => play(msgDetails),
 };
 
-module.exports = ({ message, command, args }) => {
+module.exports = (msgDetails) => {
+  const { message, command, args } = msgDetails;
   if (!message.member.voice.channel) {
     return message.channel.send('You must be connected to voice channel!');
   }
 
-  const subcommand = args[0];
-  if (!subcommand) return subcommands.play(); // default command
-  if (subcommands[subcommand]) return subcommands[subcommand]();
+  const [subcommand] = args;
+  if (!subcommand) return subcommands.play(msgDetails); // default command
+  if (subcommands[subcommand]) return subcommands[subcommand](msgDetails);
 
   return message.channel.send(
     `unkown subcommand **${subcommand}** for command **${command}**`
