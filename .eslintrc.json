@@ -1,3 +1,7 @@
 {
-  "extends": "airbnb-base"
+  "extends": "airbnb-base",
+  "rules": {
+    "consistent-return": 0,
+    "nonblock-statement-body-position": 0,
+  }
 }
