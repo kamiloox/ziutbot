@@ -6,6 +6,7 @@
   },
   "rules": {
     "consistent-return": 0,
-    "nonblock-statement-body-position": 0
+    "nonblock-statement-body-position": 0,
+    "global-require": 0
   }
 }
