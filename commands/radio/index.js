@@ -1,7 +1,9 @@
 const play = require('./play');
+const song = require('./song');
 
 const subcommands = {
   play: (msgDetails) => play(msgDetails),
+  song: (msgDetails) => song(msgDetails),
 };
 
 module.exports = (msgDetails) => {
@@ -11,10 +13,10 @@ module.exports = (msgDetails) => {
   }
 
   const [subcommand] = args;
-  if (!subcommand) return subcommands.play(msgDetails); // default command
+  if (!subcommand || typeof parseInt(args[0], 2) === 'number') {
+    return subcommands.play(msgDetails); // default command
+  }
   if (subcommands[subcommand]) return subcommands[subcommand](msgDetails);
 
-  return message.channel.send(
-    `unkown subcommand **${subcommand}** for command **${command}**`
-  );
+  return message.channel.send(`unkown subcommand **${subcommand}** for command **${command}**`);
 };
