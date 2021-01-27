@@ -1,5 +1,5 @@
 const { client } = require('../config/discord');
-const { prefix } = require('../config/main.json');
+const { prefix } = require('../config/main');
 const radio = require('./radio');
 
 const commands = {

@@ -13,9 +13,10 @@ module.exports = (msgDetails) => {
   }
 
   const [subcommand] = args;
-  if (!subcommand || typeof parseInt(args[0], 2) === 'number') {
+  if (!subcommand || Number(args)) {
     return subcommands.play(msgDetails); // default command
   }
+
   if (subcommands[subcommand]) return subcommands[subcommand](msgDetails);
 
   return message.channel.send(`unkown subcommand **${subcommand}** for command **${command}**`);
