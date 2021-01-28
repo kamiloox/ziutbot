@@ -1,4 +1,7 @@
-module.exports = async ({ message }) => {
+const defaultHandler = require('./defaultHandler');
+
+module.exports = async (msgDetails) => {
+  const { message } = defaultHandler(msgDetails);
   const { page } = await require('../../config/puppeteer');
 
   await page.waitForSelector('#station-view .station-details > h2:not(:empty)');

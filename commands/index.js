@@ -1,9 +1,11 @@
 const { client } = require('../config/discord');
 const { prefix } = require('../config/main');
-const radio = require('./radio');
+const radio = require('./radio/play');
+const title = require('./radio/title');
 
 const commands = {
   radio: (msgDetails) => radio(msgDetails),
+  title: (msgDetails) => title(msgDetails),
 };
 
 module.exports = () => {
@@ -11,7 +13,7 @@ module.exports = () => {
     if (message.author.bot) return;
 
     const typedPrefix = message.content[0];
-    if (typedPrefix !== prefix) return message.channel.send('bad prefix');
+    if (typedPrefix !== prefix) return;
 
     const [command, ...args] = message.content.substring(1).trim().split(' ');
     const msgDetails = {

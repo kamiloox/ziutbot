@@ -1,13 +1,12 @@
 const { streamURL, radioWebsite } = require('../../config/main');
+const defaultHandler = require('./defaultHandler');
 
-module.exports = async ({ args, message }) => {
+module.exports = async (msgDetails) => {
+  const { radioID, message } = defaultHandler(msgDetails);
   const { page } = await require('../../config/puppeteer');
 
-  // check if radioID is passed as `!radio play ${radioID}` or `!radio ${radioID}`
-  const radioID = args[0] === 'play' ? args[1] : args[0];
   const connection = await message.member.voice.channel.join();
-  const defaultRadioID = 118;
-  connection.play(`${streamURL}${radioID || defaultRadioID}`);
+  connection.play(`${streamURL}${radioID}`);
 
-  await page.goto(`${radioWebsite}${radioID || defaultRadioID}`);
+  await page.goto(`${radioWebsite}${radioID}`);
 };
