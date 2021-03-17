@@ -1,6 +1,6 @@
 const { isUserListening } = require('../../utils/index');
 
-module.exports = (msgDetails) => {
+module.exports = (msgDetails, callback) => {
   const { message, args } = msgDetails;
   if (!message.member.voice.channel) {
     return message.channel.send('You must be connected to voice channel!');
@@ -14,5 +14,5 @@ module.exports = (msgDetails) => {
     isUserListening,
   };
 
-  return radioDetails;
+  return callback(radioDetails);
 };
