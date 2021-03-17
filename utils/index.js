@@ -9,3 +9,13 @@ exports.onUserLeavesChannel = (callback) => {
     }
   });
 };
+
+exports.isUserListening = (message, shouldListen = false) => {
+  const authorChannelId = message.guild.member(message.author).voice.channelID;
+  const botChannelId = message.guild.me.voice.channel?.id;
+  if (authorChannelId === botChannelId) {
+    return true;
+  }
+  if (shouldListen) message.channel.send('You must listen to radio to use this command!');
+  return false;
+};
