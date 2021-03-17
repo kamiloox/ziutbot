@@ -12,7 +12,7 @@ const getNumberOfUsers = async (channelId) => {
 
 exports.onUserLeavesChannel = (callback) => {
   client.on('voiceStateUpdate', async (oldState, newState) => {
-    if (newState.channelID === null) {
+    if (newState.channelID === null || oldState.channelID !== newState.channelID) {
       const numberOfUsers = await getNumberOfUsers(oldState.channelID);
       const botInstance = oldState.guild.me;
       callback(botInstance, numberOfUsers);
@@ -22,7 +22,7 @@ exports.onUserLeavesChannel = (callback) => {
 
 exports.onBotMoved = (callback) => {
   client.on('voiceStateUpdate', async (oldState, newState) => {
-    const isBotMoved = client.user.id === newState.id;
+    const isBotMoved = client.user.id === newState.id; // Client is equal to bot
     if (!isBotMoved) return;
     const numberOfUsers = await getNumberOfUsers(newState.channelID);
     const botInstance = oldState.guild.me;
