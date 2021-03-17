@@ -1,0 +1,19 @@
+{
+  "radio": [
+    {
+      "command": "radio",
+      "description": "starts playing radio",
+      "usage": "radio *radioID* - default rock(118)"
+    },
+    {
+      "command": "title",
+      "description": "displays the title of current music",
+      "usage": "title"
+    },
+    {
+      "command": "tracks",
+      "description": "displays the next 5 songs",
+      "usage": "tracks"
+    }
+  ]
+}

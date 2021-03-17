@@ -1,10 +1,12 @@
 const { client } = require('../config/discord');
 const { prefix } = require('../config/main');
+const help = require('./help');
 const radio = require('./radio/play');
 const title = require('./radio/title');
 const tracks = require('./radio/tracks');
 
 const commands = {
+  help: (msgDetails) => help(msgDetails),
   radio: (msgDetails) => radio(msgDetails),
   title: (msgDetails) => title(msgDetails),
   tracks: (msgDetails) => tracks(msgDetails),

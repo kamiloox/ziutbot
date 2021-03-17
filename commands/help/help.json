@@ -1,0 +1,9 @@
+{
+  "help": [
+    {
+      "command": "help",
+      "description": "displays this page",
+      "usage": "help"
+    }
+  ]
+}
