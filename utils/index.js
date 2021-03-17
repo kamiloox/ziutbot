@@ -1,12 +1,32 @@
 const { client } = require('../config/discord');
 
+const getNumberOfUsers = async (channelId) => {
+  try {
+    const channel = await client.channels.fetch(channelId);
+    const numberOfUsers = channel.members.size - 1;
+    return numberOfUsers;
+  } catch (err) {
+    return null;
+  }
+};
+
 exports.onUserLeavesChannel = (callback) => {
   client.on('voiceStateUpdate', async (oldState, newState) => {
     if (newState.channelID === null) {
-      const channel = await client.channels.fetch(oldState.channelID);
-      const numberOfUsers = channel.members.size - 1;
-      callback(numberOfUsers);
+      const numberOfUsers = await getNumberOfUsers(oldState.channelID);
+      const botInstance = oldState.guild.me;
+      callback(botInstance, numberOfUsers);
     }
+  });
+};
+
+exports.onBotMoved = (callback) => {
+  client.on('voiceStateUpdate', async (oldState, newState) => {
+    const isBotMoved = client.user.id === newState.id;
+    if (!isBotMoved) return;
+    const numberOfUsers = await getNumberOfUsers(newState.channelID);
+    const botInstance = oldState.guild.me;
+    callback(botInstance, numberOfUsers);
   });
 };
 
